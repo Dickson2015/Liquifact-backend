@@ -7,6 +7,23 @@
 const CONTRACT_ID =
   process.env.ESCROW_CONTRACT_ID || 'CDQCKR2YU6IVQ4GYPBMXBPZ4FGFQB5H25AI7ZSETHS2CZ5ZRCWQDSO6P';
 
+/**
+ * Minimum tenor in calendar days from today (UTC) that a new invoice's dueDate
+ * must satisfy. A value of 1 means tomorrow is the earliest accepted date.
+ * Corresponds to the escrow contract's MaturityInPast guard (error 166).
+ * Set via MIN_TENOR_DAYS env var.
+ */
+const minTenorDays = Number(process.env.MIN_TENOR_DAYS) || 1;
+
+/**
+ * Maximum tenor in calendar days from today (UTC). Defaults to 1825 (≈ 5 years)
+ * to match the deployed contract's maturity_max_horizon of 157 680 000 seconds
+ * (~1825 days). Invoices beyond this horizon are rejected by the escrow contract
+ * with MaturityExceedsMaxHorizon (error 167).
+ * Set via MAX_TENOR_DAYS env var.
+ */
+const maxTenorDays = Number(process.env.MAX_TENOR_DAYS) || 1825;
+
 module.exports = {
   port: Number(process.env.PORT) || 3001,
   network: process.env.STELLAR_NETWORK || 'testnet',
@@ -21,4 +38,6 @@ module.exports = {
     .map((s) => s.trim())
     .filter(Boolean),
   version: require('../package.json').version,
+  minTenorDays,
+  maxTenorDays,
 };
