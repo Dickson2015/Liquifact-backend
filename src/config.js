@@ -29,7 +29,7 @@ module.exports = {
   network: process.env.STELLAR_NETWORK || 'testnet',
   rpcUrl: process.env.SOROBAN_RPC_URL || 'https://soroban-testnet.stellar.org',
   networkPassphrase:
-    process.env.STELLAR_NETWORK_PASSPHRASE || 'Test SDF Network ; September 2015',
+    process.env.STELLAR_NETWORK_PASSPHRASE || 'Test DEV Network ; September 2015',
   contractId: CONTRACT_ID,
   explorerUrl: `https://stellar.expert/explorer/testnet/contract/${CONTRACT_ID}`,
   frontendUrl: process.env.FRONTEND_URL || 'https://liquifact-frontend.vercel.app',
@@ -37,6 +37,8 @@ module.exports = {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean),
+  txWaitMs: TX_WAIT_MS,
+  protocolFeeBps: PROTOCOL_FEE_BPS,
   version: require('../package.json').version,
   minTenorDays,
   maxTenorDays,
