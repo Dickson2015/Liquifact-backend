@@ -5,6 +5,8 @@ const { StrKey } = require('@stellar/stellar-sdk');
 const store = require('../data/store');
 const config = require('../config');
 const { parseIsoDate } = require('../lib/dates');
+const { toMinor, fromMinor, couponMinor, daysBetween, annualisedBps } = require('../domain/returns');
+const contributions = require('../data/contributions');
 
 const router = express.Router();
 

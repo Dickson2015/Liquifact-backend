@@ -37,8 +37,8 @@ module.exports = {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean),
-  txWaitMs: TX_WAIT_MS,
-  protocolFeeBps: PROTOCOL_FEE_BPS,
+  txWaitMs: Number(process.env.TX_WAIT_MS) || 30000,
+  protocolFeeBps: Number(process.env.PROTOCOL_FEE_BPS) || 0,
   version: require('../package.json').version,
   minTenorDays,
   maxTenorDays,
